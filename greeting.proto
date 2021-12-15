@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package greet;
+
+message Greeting {
+	string first_name = 1;
+	string last_name = 2;
+}
+
+message GreetingRequest {
+	Greeting greeting = 1;
+}
+
+message GreetingResponse {
+	string result = 1;
+}
+
+message GreetingManyTimesRequest {
+	Greeting greeting = 1;
+}
+
+message GreetingManyTimesResponse {
+	string result = 1;
+}
+
+message LongGreetRequest {
+	Greeting greeting = 1;
+}
+
+message LongGreetResponse {
+	string result = 1;
+}
+
+message GreetEveryoneRequest {
+	Greeting greeting = 1;
+}
+
+message GreetEveryoneResponse {
+	string result = 1;
+}
+
+message GreetWithDeadlineRequest {
+	string name = 1;
+}
+
+message GreetWithDeadlineResponse {
+	string result = 1;
+}
+
+service GreetingService {
+	// Unary
+	rpc Greet (GreetingRequest) returns (GreetingResponse) {}
+	rpc GreetWithDeadline (GreetWithDeadlineRequest) returns (GreetWithDeadlineResponse) {}
+	// Server streaming
+	rpc GreetManyTimes (GreetingManyTimesRequest) returns (stream GreetingManyTimesResponse) {}
+	// Client streaming
+	rpc LongGreet (stream LongGreetRequest) returns (LongGreetResponse) {}
+	// BiDi streaming
+	rpc GreetEverone (stream GreetEveryoneRequest) returns (stream GreetEveryoneResponse) {}
+}

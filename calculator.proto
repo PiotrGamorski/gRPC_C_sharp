@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package calculator;
+
+message CalculatorRequest {
+	int32 first_number = 1;
+	int32 second_number = 2;
+}
+
+message CalculatorResponse {
+	int32 result = 1;
+}
+
+message PrimeNumRequest {
+	int32 number = 1;
+}
+
+message PrimeNumResponse {
+	int32 primeNum = 1;
+}
+
+message ComputeDivisorsRequest {
+	int32 number = 1;
+}
+
+message ComputeDivisorsResponse {
+	int32 divisor = 1;
+}
+
+message ComputeAverageRequest
+{
+	int32 number = 1;
+}
+
+message ComputeAverageResponse
+{
+	double result = 1;
+}
+
+message ComputeMinMaxRequest {
+	float number = 1;
+}
+
+message ComputeMinMaxResponse {
+	float min = 1;
+	float max = 2;
+}
+
+message ComputeCurrentMaxRequest {
+	float number = 1;
+}
+
+message ComputeCurrentMaxResponse {
+	float max = 1;
+}
+
+service CalculatorService {
+	// Unary
+	rpc Sum (CalculatorRequest) returns (CalculatorResponse) {}
+	// Server Streaming
+	rpc PrimeNumberDecomposition (PrimeNumRequest) returns (stream PrimeNumResponse) {}
+	// Server Streaming
+	rpc ComputeAllDivisors (ComputeDivisorsRequest) returns (stream ComputeDivisorsResponse) {}
+	// Client Streaming
+	rpc ComputeAverage (stream ComputeAverageRequest) returns (ComputeAverageResponse) {}
+	// Client Streaming
+	rpc ComputeMinMax (stream ComputeMinMaxRequest) returns (ComputeMinMaxResponse) {}
+	// Bi-Directional Streaming
+	rpc ComputeCurrentMax (stream ComputeCurrentMaxRequest) returns (stream ComputeCurrentMaxResponse) {}
+}
